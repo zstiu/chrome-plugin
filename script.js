@@ -1,5 +1,4 @@
 window.onload=function(){
-  alert("I Love Flutter");
 	var body = document.body;//document.getElementsByName("body");
 	// var body = document.getElementById("top");
 	var main = document.getElementsByClassName("l-side-margins")[0];
@@ -8,29 +7,34 @@ window.onload=function(){
 	console.log(main);
 	console.log(body);
 
-	var del = docl=document.getElementsByClassName("element-rich-link")[0];
+	var del = document.getElementsByClassName("element-rich-link")[0];
 	del.parentNode.removeChild(del);
 
-	// body.parentNode.removeNode(body);
+	setTimeout(function(){
+			del = document.getElementsByClassName("js-ad-slot");
 
-	// li = document.createElement('li');  
-	// li.className = "xxx";
-	// // li.appendChild(main[0])
+			console.log(del);
 
-	// console.log(li);
-	// console.log(main[0]);
-	// body.innerHTML  = "";
+			for (var i =  0; i < del.length; i ++) {
+				// body.childNodes[i]
+				// console.log(body.childNodes.length);
+				// console.log(i);
+
+				while (del[i]) {
+					// statement
+					// console.log(body.childNodes[i]);
+					del[i].parentNode.removeChild(del[i]);
+				}
+				
+			}
+
+			del = document.getElementsByClassName("element")[0];
+			if(del)
+				del.parentNode.removeChild(del);
+	}, 5000)
+
 	console.log(body);
 	console.log(body.childNodes.length);
-	// body.appendChild(main[0])
-	// body.insertNode(main[0])
-	
-	// body.appendChild(main[0]);
-	//body.replaceChild (main); //= main.toString();
-	
-	// console.log(body.childNodes[1]);
-	// console.log(body.childNodes[3]);
-	// console.log(body.childNodes[5]);
 
 	for (var i =  0; i < body.childNodes.length; i ++) {
 		// body.childNodes[i]
@@ -44,16 +48,75 @@ window.onload=function(){
 		}
 	}
 
-	// body.childNodes.map(function(item, key){
-	// 	if(item != main) {
-	// 		body.removeChild(item);
-	// 	}
-	// })	
-
-	// body.removeChild(body.childNodes[1]);
-	// body.removeChild(body.childNodes[3]);
-	// body.removeChild(body.childNodes[5]);
-
 	console.log(body);
 	console.log(body.childNodes.length);
+
+	
+	var content = document.getElementsByClassName("content__main-column")[0];
+
+	console.log(content);
+
+	var page = parseInt(body.scrollHeight/window.screen.availHeight);
+
+	for (var i = 0; i < page; i++) {
+
+		(function(i) {
+			var div = document.createElement("div");
+			var button = document.createElement("button");
+			var t=document.createTextNode(i);
+			button.appendChild(t);
+
+			div.appendChild(button);
+
+			button.style.position = 'fixed';
+			button.style.opacity = '0.6';
+			// button.style.float = 'right';
+			button.style.right = '0'
+			button.style.bottom = 50 * (page - i) + 'px';
+			button.style.zIndex = "1000";
+			button.onclick = function() {
+				// scroll(0,body.scrollHeight)
+				
+				scroll(0,i * window.screen.availHeight);
+			}
+
+			console.log(body.scrollHeight);
+
+			body.appendChild(button);
+		})(i);
+	}
+
+
+
+	console.log(body);
+
+	body.onmouseup = function(e){
+		console.log(e);
+		txt = window.getSelection();
+		console.log(txt.toString());
+
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{
+			//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{
+			// IE6, IE5 浏览器执行代码
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange=function()
+		{
+			if (xmlhttp.readyState==4 && xmlhttp.status==200)
+			{
+				// document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+				
+				var res = JSON.parse(xmlhttp.responseText);
+				console.log(res);
+			}
+		}
+		xmlhttp.open("GET","https://api.shanbay.com/bdc/search/?word=" + txt, true);
+		xmlhttp.send();
+	}
 }
