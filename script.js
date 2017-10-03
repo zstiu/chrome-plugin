@@ -31,7 +31,7 @@ window.onload=function(){
 			del = document.getElementsByClassName("element")[0];
 			if(del)
 				del.parentNode.removeChild(del);
-	}, 5000)
+	}, 2000)
 
 	console.log(body);
 	console.log(body.childNodes.length);
@@ -90,6 +90,16 @@ window.onload=function(){
 
 	console.log(body);
 
+	var _div;
+
+	body.onmousedown = function(e){
+		console.log(_div);
+		if(_div){
+			body.removeChild(_div);
+			_div = undefined;
+		}
+	}
+
 	body.onmouseup = function(e){
 		console.log(e);
 		txt = window.getSelection();
@@ -114,6 +124,67 @@ window.onload=function(){
 				
 				var res = JSON.parse(xmlhttp.responseText);
 				console.log(res);
+
+				if(!res.status_code){
+					_div = document.createElement("div");
+					_div.innerHTML = res.data.cn_definition.defn;
+					_div.style.position = 'absolute';
+					_div.style.top = e.pageY + 'px';
+					_div.style.left = e.pageX + 'px';
+					_div.style.backgroundColor = 'pink';
+					_div.style.opacity = '0.8';
+					_div.style.border = '2px';
+					_div.style.borderRadius = '1px';
+
+					_div.style.zIndex = "1000";
+
+					_div.onmousedown = function(e){
+						if(e && e.stopPropagation){
+						  //W3C取消冒泡事件
+						  e.stopPropagation();
+						  }else{
+						  //IE取消冒泡事件
+						  window.event.cancelBubble = true;
+						  }
+					}
+
+					_div.onmouseup = function(e){
+						if(e && e.stopPropagation){
+						  //W3C取消冒泡事件
+						  e.stopPropagation();
+						  }else{
+						  //IE取消冒泡事件
+						  window.event.cancelBubble = true;
+						  }
+					}
+
+					
+					// document.all.sound.src=res.data.audio;
+					console.log(document);
+
+					var laba = document.createElement("button");
+					var img = document.createElement("img");
+					img.src = "https://cdn-img.easyicon.net/png/12013/1201363.gif";
+					img.style.width = img.style.height = "20px";
+					laba.style.padding = '0';
+					laba.style.width = laba.style.height = "24px";
+					laba.appendChild(img);
+					_div.appendChild(laba);
+
+					laba.onclick = function(){
+						var au = document.createElement("audio");
+						au.preload="auto";
+						au.src = "https" + res.data.audio.substring(4)
+						au.play();
+					}
+					
+
+					console.log(_div);
+					body.appendChild(_div);
+				}
+
+				
+
 			}
 		}
 		xmlhttp.open("GET","https://api.shanbay.com/bdc/search/?word=" + txt, true);

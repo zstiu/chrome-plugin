@@ -2,11 +2,10 @@
   "name": "shanbay",
   "manifest_version": 2,
   "version": "1.0",
-  "description": "shanbay ~~！",
+  "description": "~~",
   "browser_action": {
-    // "default_icon": "1.png",
   },
-  "permissions":[ "https://api.shanbay.com/" ],
+  "permissions":[ "https://api.shanbay.com/","https://media.shanbay.com/"],
   "content_scripts": [
     {
       "matches": ["https://www.theguardian.com/politics/2015/may/28/david-cameron-sets-off-on-mission-to-win-over-european-leaders"],
