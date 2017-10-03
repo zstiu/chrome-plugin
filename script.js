@@ -4,8 +4,6 @@ window.onload=function(){
 	var main = document.getElementsByClassName("l-side-margins")[0];
 	// var footer = ;
 	main.removeChild(main.getElementsByClassName("content-footer")[0]);
-	console.log(main);
-	console.log(body);
 
 	var del = document.getElementsByClassName("element-rich-link")[0];
 	del.parentNode.removeChild(del);
@@ -13,16 +11,8 @@ window.onload=function(){
 	setTimeout(function(){
 			del = document.getElementsByClassName("js-ad-slot");
 
-			console.log(del);
-
 			for (var i =  0; i < del.length; i ++) {
-				// body.childNodes[i]
-				// console.log(body.childNodes.length);
-				// console.log(i);
-
 				while (del[i]) {
-					// statement
-					// console.log(body.childNodes[i]);
 					del[i].parentNode.removeChild(del[i]);
 				}
 				
@@ -33,28 +23,18 @@ window.onload=function(){
 				del.parentNode.removeChild(del);
 	}, 2000)
 
-	console.log(body);
-	console.log(body.childNodes.length);
 
 	for (var i =  0; i < body.childNodes.length; i ++) {
 		// body.childNodes[i]
-		console.log(body.childNodes.length);
-		console.log(i);
 
 		while (body.childNodes[i] && body.childNodes[i] != main) {
 			// statement
-			console.log(body.childNodes[i]);
 			body.removeChild(body.childNodes[i]);
 		}
 	}
 
-	console.log(body);
-	console.log(body.childNodes.length);
-
 	
 	var content = document.getElementsByClassName("content__main-column")[0];
-
-	console.log(content);
 
 	var page = parseInt(body.scrollHeight/window.screen.availHeight);
 
@@ -80,20 +60,14 @@ window.onload=function(){
 				scroll(0,i * window.screen.availHeight);
 			}
 
-			console.log(body.scrollHeight);
-
 			body.appendChild(button);
 		})(i);
 	}
 
 
-
-	console.log(body);
-
 	var _div;
 
 	body.onmousedown = function(e){
-		console.log(_div);
 		if(_div){
 			body.removeChild(_div);
 			_div = undefined;
@@ -101,9 +75,7 @@ window.onload=function(){
 	}
 
 	body.onmouseup = function(e){
-		console.log(e);
 		txt = window.getSelection();
-		console.log(txt.toString());
 
 		var xmlhttp;
 		if (window.XMLHttpRequest)
@@ -123,7 +95,6 @@ window.onload=function(){
 				// document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
 				
 				var res = JSON.parse(xmlhttp.responseText);
-				console.log(res);
 
 				if(!res.status_code){
 					_div = document.createElement("div");
@@ -158,10 +129,6 @@ window.onload=function(){
 						  }
 					}
 
-					
-					// document.all.sound.src=res.data.audio;
-					console.log(document);
-
 					var laba = document.createElement("button");
 					var img = document.createElement("img");
 					img.src = "https://cdn-img.easyicon.net/png/12013/1201363.gif";
@@ -177,9 +144,7 @@ window.onload=function(){
 						au.src = "https" + res.data.audio.substring(4)
 						au.play();
 					}
-					
 
-					console.log(_div);
 					body.appendChild(_div);
 				}
 
